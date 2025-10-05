@@ -35,28 +35,16 @@ Admin can manage products; customers can browse, add to cart, and checkout.
 8. Running the Application
    php artisan serve
 9. Visit: http://127.0.0.1:8000
-10. Admin dashboard: http://127.0.0.1:8000/admin/dashboard
+10. NOTE: Logout as as a customer before trying to access the admin route, the middlware doesn't allow identified user as customer to access the Admin route 
+11. Admin dashboard: http://127.0.0.1:8000/admin
+12.  Admin with admin@demo.com / Admin@12
 11.Customer:login with customer@demo.com / Customer@12
-12. Admin with admin@demo.com / Admin@12
-
+   
       SQL Screenshots
-   <img width="632" height="322" alt="Top 5 sold products" src="https://github.com/user-attachments/assets/04a4d89f-4642-43a5-8374-c96f0b989fab" />
-   <img width="634" height="342" alt="last 7 days revenue" src="https://github.com/user-attachments/assets/8c14467f-599c-43de-8f42-fe4f031955ed" />
-   <img width="564" height="199" alt="lifetime spent" src="https://github.com/user-attachments/assets/a6cb4f35-5582-4868-82ad-118be2941f21" />
-
-   
-
-
-
-
-
-
-
-
-
-
-   
-   
+<img width="374" height="183" alt="top 5 sold product" src="https://github.com/user-attachments/assets/6531a7dd-ca22-4350-8884-0479258a6131" />
+<img width="404" height="237" alt="last 7 days revenue" src="https://github.com/user-attachments/assets/0d3f48b0-9319-41c5-80f9-17d3e6484f83" />
+<img width="507" height="100" alt="lifetime spent" src="https://github.com/user-attachments/assets/1ea0c206-344f-4889-a241-0daa8eacfc78" />
+ 
    
 =======
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
