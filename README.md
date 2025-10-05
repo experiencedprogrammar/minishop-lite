@@ -14,6 +14,9 @@ Admin can manage products; customers can browse, add to cart, and checkout.
 - Laravel Breeze (Auth)
 - MySQL (Eloquent ORM)
 - RESTful API (Products, Orders)
+  Loom Link recording 2
+  ```bash
+  https://www.loom.com/share/7fd5ee2ffb764de58e3617a30e8eb9d1?sid=c125247d-5545-4b12-ba36-35c7dbf77d98
 
 ### Setup Instructions
 1. Clone the repository:
@@ -35,16 +38,15 @@ Admin can manage products; customers can browse, add to cart, and checkout.
 8. Running the Application
    php artisan serve
 9. Visit: http://127.0.0.1:8000
-10. NOTE: Logout as as a customer before trying to access the admin route, the middlware doesn't allow identified user as customer to access the Admin route 
-11. Admin dashboard: http://127.0.0.1:8000/admin
-12.  Admin with admin@demo.com / Admin@12
+10. NOTE: Logout as as a customer before trying to access the admin route, the middlware doesn't allow identified user as customer to access the Admin route
+
+12. Admin dashboard: http://127.0.0.1:8000/admin
+13.  Admin with admin@demo.com / Admin@12
 11.Customer:login with customer@demo.com / Customer@12
-   
-      SQL Screenshots
+SQL Screenshots
 <img width="374" height="183" alt="top 5 sold product" src="https://github.com/user-attachments/assets/6531a7dd-ca22-4350-8884-0479258a6131" />
 <img width="404" height="237" alt="last 7 days revenue" src="https://github.com/user-attachments/assets/0d3f48b0-9319-41c5-80f9-17d3e6484f83" />
 <img width="507" height="100" alt="lifetime spent" src="https://github.com/user-attachments/assets/1ea0c206-344f-4889-a241-0daa8eacfc78" />
- 
    
 =======
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
