@@ -206,9 +206,9 @@ textarea.form-control { min-height:80px; max-height:150px; resize:vertical; }
                 <input type="hidden" id="amount" name="amount" value="{{ $total }}">
                 @auth
                 <button type="submit" class="btn btn-success"><i class="fas fa-credit-card me-1"></i> Proceed to Checkout</button>
-                <button type="button" id="checkoutApiBtn" class="btn btn-outline-primary w-100 mt-2">Checkout (API Demo)</button>
+                <button type="button" id="checkoutApiBtn" class="btn btn-outline-primary w-100 mt-2">Continue Shopping</button>
                 @else
-                <a href="{{ route('login') }}" class="btn btn-success"><i class="fas fa-sign-in-alt me-1"></i> Login to Checkout</a>
+                <a href="{{ route('customer.login.form') }}" class="btn btn-success"><i class="fas fa-sign-in-alt me-1"></i> Login to Checkout</a>
                 @endauth
             </div>
         </form>

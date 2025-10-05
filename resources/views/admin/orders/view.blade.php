@@ -272,23 +272,20 @@ td {
 
                             <td>{{ number_format($order->total, 2) }}</td>
                             <td>
-                             @if($order->status === 'pending')
-                             <button class="btn btn-sm btn-outline-warning">Pending</button>
-                             @elseif($order->status === 'processed')
+                             @if($order->status === 'processed')
                              <button class="btn btn-sm btn-outline-success">Processed</button>
-                             @elseif($order->status === 'cancelled')
-                             <button class="btn btn-sm btn-outline-danger">Cancelled</button>
-                             @else
-                             <button class="btn btn-sm btn-outline-secondary">Unknown</button>
+                             @else($order->status === 'pending')
+                             <button class="btn btn-sm btn-outline-primary">Pending</button>
                              @endif
                              </td>
 
                             <td>{{ $order->created_at->format('d M Y H:i') }}</td>
                              <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view-btn" title="View">
+                                    <a href="{{ route('admin.order-items', $order->id) }}" class="action-btn view-btn" title="View">
                                         <i class="fas fa-eye"></i>
-                                    </button>
+                                    </a>
+                                    
                                     <button class="action-btn delete-btn" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </button>

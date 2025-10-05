@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minishop Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -23,7 +24,7 @@
     .user-area { display: flex; align-items: center; }
     .user-info { margin-right: 15px; text-align: right; }
     .user-name { font-weight: 500; font-size: 0.9rem; color: #fff; }
-    .user-role { font-size: 0.8rem; color: rgba(255,255,255,0.8); }
+    .user-role { font-size: 1rem; color: rgba(255,255,255,0.8); }
     .user-img { width: 35px; height: 35px; border-radius: 50%; background: #fff;
       display: flex; align-items: center; justify-content: center; color: #283046; font-weight: bold; }
 
@@ -84,8 +85,7 @@
     <div class="logo"><img src="{{ asset('storage/img/logo3.png') }}" alt="Frela Admin Logo"></div>
     <div class="user-area">
       <div class="user-info">
-        <span class="user-name">Administrator</span>
-        <span class="user-role">Administrator</span>
+         <span class="user-role">Administrator</span>
       </div>
       <figure class="user-img">JJ</figure>
     </div>
@@ -199,6 +199,8 @@
         }
       });
     });
+
+    
   </script>
 </body>
 </html>

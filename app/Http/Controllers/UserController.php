@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules; 
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource (customers only).
      */
     public function index()
     {
@@ -18,17 +19,71 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // ---------------- Admin Login ----------------
+    public function showAdminForm()
     {
-        return view('admin.users.create');
+        // Prevent logged-in customers from accessing admin login
+        if (Auth::check() && Auth::user()->role === 'customer') {
+            return redirect()->route('home')->with('error', 'Access denied.');
+        }
+
+        return view('admin.login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function adminLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // Only allow admins
+        if (Auth::attempt(array_merge($credentials, ['role' => 'admin']))) {
+            $request->session()->regenerate();
+            return redirect()->route('admin.dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials for admin login.',
+        ])->onlyInput('email');
+    }
+
+    // ---------------- Customer Login ----------------
+    public function showCustomerLoginForm()
+    {
+        // Prevent logged-in admins from accessing customer login
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard')->with('error', 'Admins cannot access customer login.');
+        }
+
+        return view('login'); // customer login view
+    }
+
+    public function customerLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // Only allow customers
+        if (Auth::attempt(array_merge($credentials, ['role' => 'customer']))) {
+            $request->session()->regenerate();
+            // Redirect to intended page (like /cart) or fallback to home
+            return redirect()->intended(session('url.intended', route('home')));
+        }
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials for customer login.',
+        ])->onlyInput('email');
+    }
+
+    // ---------------- User CRUD ----------------
+    public function create()
+    {
+        return view('admin.users.add');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -49,27 +104,18 @@ class UserController extends Controller
         return redirect()->route('admin.users')->with('success', 'User created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $user = User::findOrFail($id);
         return view('admin.users.index', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
         return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
@@ -96,14 +142,10 @@ class UserController extends Controller
         return redirect()->route('admin.users')->with('success', 'User updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        
-        // Prevent admin from deleting themselves
+
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users')->with('error', 'You cannot delete your own account.');
         }
@@ -112,6 +154,14 @@ class UserController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
     }
-    
 
+    // ---------------- Logout ----------------
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'You have been logged out successfully.');
+    }
 }

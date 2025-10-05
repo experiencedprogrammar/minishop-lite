@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FrelaPay</title>
+  <title>Minishop Pay</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -46,9 +46,7 @@
 <body>
 
   <!-- Full-page header -->
-  <header>
-    <h1 style="font-size:1rem;margin:0;">FrelaPay</h1>
-  </header>
+ 
 
   <main>
     <section class="checkout-container">
@@ -121,13 +119,9 @@
       </article>
    </section>
   </main>
-  <p class="spacer-text">
-    By tapping "PAY NOW" I accept Frelamed's Payment, General Terms and Conditions, and Privacy and Cookie Notice
-  </p>
+  
   <!-- Full-page footer -->
-  <footer>
-    <p style="margin:0;font-size:.8rem;">© 2025 FrelaPay</p>
-  </footer>
+
 
   <script>
     document.getElementById('view-all-toggle').addEventListener('click', e=>{

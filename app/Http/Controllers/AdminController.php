@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
@@ -44,5 +44,13 @@ class AdminController extends Controller
         return view('admin.dashboard', compact(
             'totalUsers', 'orders', 'totalSales', 'totalOrders',
              'topProducts', 'revenueLast7Days'));
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout(); // logout the currently authenticated user
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login'); // redirect to admin login page
     }
 }

@@ -4,87 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .admin-icon {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .eye {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #2563eb;
-            border-radius: 50%;
-        }
-        
-        .left-eye {
-            left: 22px;
-            top: 22px;
-        }
-        
-        .right-eye {
-            right: 22px;
-            top: 22px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        .login-container { background: white; border-radius: 6px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 100%; max-width: 380px; padding: 25px; }
+        .login-header { text-align: center; margin-bottom: 20px; }
+        .login-header h2 { color: #2c3e50; font-size: 24px; margin-bottom: 5px; }
+        .login-header p { color: #7f8c8d; font-size: 14px; }
+        .error-message { background: #ffeaea; color: #e74c3c; padding: 10px; border-radius: 3px; margin-bottom: 15px; font-size: 13px; border-left: 3px solid #e74c3c; }
+        .login-form { display: flex; flex-direction: column; gap: 15px; }
+        .form-group label { color: #2c3e50; font-weight: 500; margin-bottom: 5px; font-size: 13px; display: block; }
+        .input-with-icon { position: relative; }
+        .input-with-icon input { width: 100%; padding: 12px 12px 12px 40px; border: 1px solid #ddd; border-radius: 3px; font-size: 14px; background: #f9f9f9; transition: 0.2s; }
+        .input-with-icon input:focus { outline: none; border-color: #3498db; background: white; box-shadow: 0 0 0 2px rgba(52,152,219,0.2); }
+        .input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #7f8c8d; }
+        .form-options { display: flex; justify-content: space-between; margin: 10px 0; font-size: 13px; }
+        .remember-me { display: flex; align-items: center; gap: 5px; color: #2c3e50; }
+        .forgot-password { color: #3498db; text-decoration: none; }
+        .login-button { background: linear-gradient(to right, #3498db, #2980b9); color: white; border: none; padding: 12px; border-radius: 3px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: 5px; }
+        .login-button:hover { background: linear-gradient(to right, #2980b9, #3498db); }
+        .register-link { text-align: center; margin-top: 15px; color: #7f8c8d; font-size: 14px; }
+        .register-link a { color: #3498db; text-decoration: none; font-weight: 500; }
     </style>
 </head>
-<body class="bg-gray-100">
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-md w-full bg-white rounded-md shadow-md p-6">
-            <!-- Admin Icon -->
-            <div class="text-center mb-6">
-                <div class="admin-icon inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-3">
-                    <i class="fas fa-user text-2xl text-blue-600"></i>
-                    <div class="eye left-eye"></div>
-                    <div class="eye right-eye"></div>
-                </div>
-                <h1 class="text-2xl font-bold text-gray-800">Admin Login</h1>
-            </div>
-
-            @if ($errors->any())
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4 text-sm">
-                    @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                    @endforeach
-                </div>
-            @endif
-
-            <form method="POST" action="{{ route('admin.login.store') }}">
-                @csrf
-                
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-800 text-sm font-bold mb-2">Email</label>
-                    <input type="email" id="email" name="email" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-300 focus:border-blue-300"
-                           value="{{ old('email') }}" 
-                           required 
-                           autofocus>
-                </div>
-
-                <div class="mb-6">
-                    <label for="password" class="block text-gray-800 text-sm font-bold mb-2">Password</label>
-                    <input type="password" id="password" name="password" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-300 focus:border-blue-300"
-                           required>
-                </div>
-
-                <button type="submit" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-blue-300 focus:ring-offset-1">
-                    Sign In
-                </button>
-            </form>
-
-            <div class="mt-4 text-center">
-                <a href="{{ url('/') }}" class="text-blue-600 hover:text-blue-800 text-sm">
-                    <i class="fas fa-arrow-left mr-1"></i> Back to Website
-                </a>
-            </div>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2>Administrator</h2>
         </div>
+        @if ($errors->any())
+        <div class="error-message">
+            {{ $errors->first() }}
+        </div>
+      @endif
+    
+
+        <form class="login-form" method="POST" action="{{ route('admin.login.store') }}">
+            @csrf
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">@</span>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">#</span>
+                    <input id="password" type="password" name="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-button">Sign In</button>
+        </form>
+
     </div>
 </body>
 </html>
+

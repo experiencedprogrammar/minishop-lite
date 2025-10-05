@@ -67,6 +67,22 @@ class CheckoutController extends Controller
         ));
     }
 
+    public function adminOrders()
+{
+    $orders = Order::with('user') // eager load user
+                   ->latest()
+                   ->paginate(15); // paginate for admin view
+
+    return view('admin.orders.view', compact('orders'));
+}
+    public function orderItems()
+    {
+        // Eager load user and products in order items
+        $orders = Order::with(['user', 'orderItems.product'])->latest()->get();
+
+        // Return Blade view with orders data
+        return view('admin.orders.order-items', compact('orders'));
+    }
     /**
      * Store a new order (handles both checkout Blade + API)
      */
